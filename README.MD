@@ -14,9 +14,13 @@ A paclet site is a (local or cloud) directory, with two necessary components in 
 
 ## Environment Requirement
 
-* Any **Wolfram Kernel** of **version 11+**. Only 12.0.0.0, 12.2.0.0 are tested.
-* `wget` for downloading paclets from internet. If you have nothing to do with a remote paclet site, this is not needed.
-* `cat`  shell command available for catenate files, `split` command for split files. Only cygwin on Windows 10 and Linux tested. *Paclet splitting is **not** supported by the official paclet manager, so usually you won't need this feature.*
+* Any **Wolfram Kernel** of **version 11+**.
+	* Only 12.0.0.0, 12.2.0.0 are tested.
+* `wget` for downloading paclets from internet.
+	* If you have nothing to do with a remote paclet site, this is not needed.
+* `cat`  shell command available for catenate files, `split` command for split files.
+	* Only cygwin on Windows 10 and Linux tested.
+	* *Paclet splitting is **not** supported by the official paclet manager, so usually you won't need this feature.*
 
 ## Installation
 
@@ -123,7 +127,7 @@ This paclet will be automatically loaded when its symbols are evaluated. And **i
 
 ### Bug
 
-* The `Format` output of ````Private`Paclet``` expressions disturb the  output display in a command-line environment.
+* The `Format` output of ``` `Private`Paclet``` expressions disturb the  output display in a command-line environment.
 
 ## Note
 
