@@ -121,6 +121,8 @@ This paclet will be automatically loaded when its symbols are evaluated. And **i
 
 ## Development
 
+See issues.
+
 ### Features in plan
 
 * Write platform requirements in the requirement file and then use it for more useful functions.
@@ -131,6 +133,6 @@ This paclet will be automatically loaded when its symbols are evaluated. And **i
 
 ## Note
 
-* This package do not require any function from the official paclet manger.
+* This package does not require any function from the official paclet manger.
 * This package is developed due to the requirement of `WolframPacletMirror` for China users. Original written by asdasd1dsadsa.
 
