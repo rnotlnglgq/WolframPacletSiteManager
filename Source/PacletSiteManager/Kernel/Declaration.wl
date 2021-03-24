@@ -31,10 +31,13 @@ $RequirementFile
 `Private`PacletSite
 
 
-`Private`Paclet /: Format[paclet:_`Private`Paclet] := StringTemplate["<[Paclet: ``]>"]@ToString@GetPacletValue["QualifiedName"]@paclet
+`Private`Paclet /: Format[paclet:`Private`Paclet[(_String -> _)...]] := StringTemplate["<[Type-2 Paclet: ``]>"]@ToString@GetPacletValue["QualifiedName"]@paclet
 
 
-`Private`PacletObject /: Format[paclet:_`Private`PacletObject] := StringTemplate["<[PacletObject: ``]>"]@GetPacletValue["QualifiedName"]@paclet
+`Private`Paclet /: Format[paclet:`Private`Paclet[(_Symbol -> _)...]] := StringTemplate["<[Type-1 Paclet: ``]>"]@ToString@GetPacletValue["QualifiedName"]@PacletExpressionConvert[2]@paclet
+
+
+`Private`PacletObject /: Format[paclet:_`Private`PacletObject] := StringTemplate["<[Type-3 Paclet: ``]>"]@GetPacletValue["QualifiedName"]@paclet
 
 
 (* ::Subsection:: *)

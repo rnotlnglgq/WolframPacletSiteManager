@@ -129,7 +129,7 @@ See issues.
 
 ### Bug
 
-* The `Format` output of ``` `Private`Paclet``` expressions disturb the  output display in a command-line environment.
+* Still testing
 
 ## Note
 

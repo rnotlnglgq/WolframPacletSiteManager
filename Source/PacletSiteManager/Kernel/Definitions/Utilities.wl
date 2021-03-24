@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-$RemotePacletSite = "http://pacletserver.wolfram.com";
+$RemotePacletSite = "pacletserver.wolfram.com";
 
 
 $VersionStringComplete = StringRiffle[#, "."]&@{
@@ -16,4 +16,10 @@ withContext[expr_] := Block[{tmp},
 	tmp = expr;
 	End[];
 	tmp	
+]
+
+
+SetAttributes[withUniqueContext, HoldAll]
+withUniqueContext[expr_] := Block[{$Context = "PacletSiteManager`Private`", $ContextPath = {}},
+	expr
 ]

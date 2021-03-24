@@ -4,11 +4,24 @@
 (*Download*)
 
 
-fileNameToURL[fileName_String] := URLBuild@{
-	StringReplace["pacletserver.wolfram.com" :> "pacletserver2.wolfram.com"]@$RemotePacletSite,
-	"Paclets",
-	URLEncode@fileName
-};
+URLParse@"https://pacletserver2.wolfram.com"
+
+
+URLBuild@{
+	"pacletserver2.wolfram.com",
+	"Paclets"
+}
+
+
+fileNameToURL[fileName_String] := URLBuild@<|
+	"Scheme" -> "https",
+	"User" -> None,
+	"Domain" -> StringReplace["pacletserver.wolfram.com" :> "pacletserver2.wolfram.com"]@$RemotePacletSite,
+	"Port" -> None,
+	"Path" -> {"Paclets", URLEncode@fileName},
+	"Query" -> {},
+	"Fragment" -> None
+|>
 SetAttributes[fileNameToURL, Listable]
 
 
@@ -37,10 +50,15 @@ DownloadRequest[fileName_String] := HTTPRequest[
 	|>
 ];
 DownloadRequest[`PacletSite] := HTTPRequest[
-	URLBuild@{
-		StringReplace["pacletserver.wolfram.com" :> "pacletserver2.wolfram.com"]@$RemotePacletSite,
-		"PacletSite.mz"
-	},
+	URLBuild@<|
+		"Scheme" -> "https",
+		"User" -> None,
+		"Domain" -> StringReplace["pacletserver.wolfram.com" :> "pacletserver2.wolfram.com"]@$RemotePacletSite,
+		"Port" -> None,
+		"Path" -> {"PacletSite.mz"},
+		"Query" -> {},
+		"Fragment" -> None
+	|>,
 	<|
 		"Headers" -> {
 			"Mathematica-systemID" -> $SystemID,

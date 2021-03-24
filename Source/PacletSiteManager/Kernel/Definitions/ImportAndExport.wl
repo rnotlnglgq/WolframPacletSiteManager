@@ -12,7 +12,7 @@
 (*Local: Load from Directory[]*)
 
 
-GetSiteInfo[1] := `PacletSite @@ PacletExpressionConvert[2]@*`Paclet @@@ withContext@Import["PacletSite.mz", {"ZIP", "PacletSite.m"}]
+GetSiteInfo[1] := PacletExpressionConvert[2] /@ withUniqueContext@ImportString[#, "Package"] & @ Import["PacletSite.mz", {"ZIP", "PacletSite.m", "String"}]
 
 
 (* ::Text:: *)
@@ -54,9 +54,9 @@ GetSiteInfo[3] := With[
 (*Cloud: Fetch now*)
 
 
-GetSiteInfo[4] := `PacletSite @@ PacletExpressionConvert[2]@*`Paclet @@@ withContext@ImportByteArray[
+GetSiteInfo[4] := PacletExpressionConvert[2] /@ withUniqueContext@ImportString[#, "Package"] &@ImportByteArray[
 	ByteArray@URLRead[DownloadRequest@`PacletSite]["BodyBytes"]
-, {"ZIP", "PacletSite.m"}]
+, {"ZIP", "PacletSite.m", "String"}]
 
 
 (* ::Subsection:: *)
@@ -74,7 +74,7 @@ PacletList[] := FileNames["*.paclet", "Paclets"]
 (*Import PacletInfo in paclets*)
 
 
-GetPacletInfo[filePath_] := `Paclet@@First@withContext@Import[filePath, StringRiffle[{"*", "PacletInfo.*"}, "/"]]
+GetPacletInfo[filePath_] := withUniqueContext@ImportString[#, "Package"] &@First@Import[filePath, {StringRiffle[{"*", "PacletInfo.*"}, "/"], "String"}]
 SetAttributes[GetPacletInfo, Listable]
 GetPacletInfo[] := GetPacletInfo@PacletList[]
 
@@ -87,11 +87,15 @@ GetPacletInfo[] := GetPacletInfo@PacletList[]
 (*SiteInfo*)
 
 
-PutSiteInfo[siteInfo_] := (
-	withContext@Export["PacletSite.mz",
-		"PacletSite.m" -> {ToString[`PacletSite @@ PacletExpressionConvert[1] /@ siteInfo, InputForm], "String"}
-	, "ZIP"];
-	siteInfo
-)
+PutSiteInfo[siteInfo_] := With[
+	{
+		infoString = withUniqueContext@ToString[#, InputForm] &[
+			`PacletSite @@ PacletExpressionConvert[1] /@ siteInfo
+		]
+	},
+	Export["PacletSite.m", infoString, "String"];
+	CreateArchive["PacletSite.m", "PacletSite.mz", OverwriteTarget -> True];
+	infoString
+]
 PutSiteInfo[i_Integer] := PutSiteInfo@SiteRegularize@GetSiteInfo@i
 PutSiteInfo[] := PutSiteInfo@2
