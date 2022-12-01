@@ -4,15 +4,6 @@
 (*Download*)
 
 
-URLParse@"https://pacletserver2.wolfram.com"
-
-
-URLBuild@{
-	"pacletserver2.wolfram.com",
-	"Paclets"
-}
-
-
 fileNameToURL[fileName_String] := URLBuild@<|
 	"Scheme" -> "https",
 	"User" -> None,
@@ -89,10 +80,25 @@ ExportURLList[paclets:_[__`Paclet], urlFileName_:"url.txt"] := ExportURLList[Get
 $Downloader = "wget";
 
 
+$CustomDownloadOptions = ""
+
+
+$AddCustomDownloadOptionsHook = StringRiffle[Flatten@{#, $CustomDownloadOptions}, " "]&
+
+
 DownloadCommand["wget"] := StringTemplate["wget `` -i ``"][
-	StringTemplate["--header=\"``: ``\""]@@@DownloadRequest[]["Headers"] //StringRiffle,
+	StringTemplate["--header=\"``: ``\""]@@@DownloadRequest[]["Headers"] //StringRiffle //$AddCustomDownloadOptionsHook,
 	"url.txt"
 ]
+
+
+DownloadCommand["aria2c"] := StringTemplate["aria2c `` --input-file=``"][
+	StringTemplate["--header=\"``: ``\""]@@@DownloadRequest[]["Headers"] //StringRiffle //$AddCustomDownloadOptionsHook,
+	"url.txt"
+]
+
+
+DownloadCommand["aria2c-rpc"] := Failure["Not Implemented", <||>]
 
 
 (* ::Subsubsection:: *)

@@ -2,7 +2,7 @@
 
 Paclet[
 	Name -> "PacletSiteManager",
-	Version -> "0.0.0",
+	Version -> "0.0.1", (* Update Downloader Support *)
 	WolframVersion -> "11+", (* Most versions are not tested. 12.0+ recommended. *)
 	Description -> "Provide tools for building PacletSite, especially on a remote git repository.",
 	Root -> ".",
@@ -49,7 +49,7 @@ Paclet[
 				ValidPacletFileQ,
 				ValidPacletQ
 			}
-		(* Select[Names["PacletSiteManager`*"], Capitalize@# === # &@ StringTake[#, 1] &]//StringRiffle[#,"\",\n				\""]& *)
+		(* Select[Names["PacletSiteManager`*"], Capitalize@# === # &@ StringTake[#, 1] &]//StringRiffle[#,"\",\n\t\t\t\t\""]& *)
 		}
 	}
 ]
